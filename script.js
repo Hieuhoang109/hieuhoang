@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const donateNameInput = document.getElementById('donate-name-input');
   const donateMessageInput = document.getElementById('donate-message-input');
   const donateSubmitBtn = document.getElementById('donate-submit-btn');
-  const donateBackBtn = document.getElementById('donate-back-btn');
+  const donateConfirmDoneBtn = document.getElementById('donate-confirm-done-btn');
   const donateError = document.getElementById('donate-error');
   const displayAmount = document.getElementById('display-amount');
   const quickButtons = document.querySelectorAll('.quick-btn');
@@ -73,13 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
     submitDonateAmount();
   });
 
-  // Quay lại đổi số tiền
-  donateBackBtn?.addEventListener('click', () => {
-    if (donateStepQr && donateStepAmount) {
-      donateStepQr.style.display = 'none';
-      donateStepAmount.style.display = 'block';
-      donateInput?.focus();
-    }
+  // Nút xác nhận ở màn hình QR -> đóng modal luôn
+  donateConfirmDoneBtn?.addEventListener('click', () => {
+    closeModal(donateModal);
   });
 
   async function submitDonateAmount() {
