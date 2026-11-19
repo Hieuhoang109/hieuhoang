@@ -18,8 +18,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.75rem;
   text-align: center;
+  padding: 1rem;
 }
 
 .title {
@@ -31,35 +32,74 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.btn-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .btn {
   padding: 0.75rem 1.75rem;
   font-size: 1rem;
   font-weight: 600;
-  color: #0f172a;
-  background-color: #38bdf8;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary {
+  color: #0f172a;
+  background-color: #38bdf8;
   box-shadow: 0 4px 14px rgba(56, 189, 248, 0.35);
 }
 
-.btn:hover {
+.btn-primary:hover {
   background-color: #7dd3fc;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
+}
+
+.btn-donate {
+  color: #ffffff;
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+}
+
+.btn-donate:hover {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.45);
+}
+
+.btn-secondary {
+  color: #94a3b8;
+  background: #334155;
+}
+
+.btn-secondary:hover {
+  background: #475569;
+  color: #f8fafc;
 }
 
 .btn:active {
   transform: translateY(0);
 }
 
+.w-full {
+  width: 100%;
+}
+
 /* Modal Styling */
 .modal {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,6 +107,7 @@ body {
   pointer-events: none;
   transition: opacity 0.25s ease;
   padding: 1rem;
+  z-index: 50;
 }
 
 .modal.active {
@@ -78,12 +119,12 @@ body {
   position: relative;
   background: #1e293b;
   border: 1px solid #334155;
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   padding: 2rem;
-  max-width: 400px;
+  max-width: 420px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   transform: scale(0.95);
   transition: transform 0.25s ease;
 }
@@ -94,9 +135,9 @@ body {
 
 .close-btn {
   position: absolute;
-  top: 0.75rem;
-  right: 1rem;
-  font-size: 1.5rem;
+  top: 0.85rem;
+  right: 1.15rem;
+  font-size: 1.75rem;
   background: transparent;
   border: none;
   color: #94a3b8;
@@ -110,12 +151,123 @@ body {
 }
 
 .modal-content h2 {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   font-size: 1.5rem;
-  color: #38bdf8;
+  color: #f8fafc;
 }
 
-.modal-content p {
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Donate Step 1: Input & Quick Buttons */
+.quick-amounts {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.quick-btn {
+  flex: 1;
+  padding: 0.5rem;
+  background: #0f172a;
+  border: 1px solid #334155;
   color: #cbd5e1;
-  line-height: 1.6;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.quick-btn:hover,
+.quick-btn.selected {
+  border-color: #f59e0b;
+  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem 3.5rem 0.75rem 1rem;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  font-size: 1.1rem;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-group input:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+.currency-label {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.error-msg {
+  color: #f87171;
+  font-size: 0.85rem;
+  min-height: 1.25rem;
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+
+/* Donate Step 2: QR Code */
+.donate-amount-display {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.donate-amount-display strong {
+  color: #fbbf24;
+  font-size: 1.35rem;
+}
+
+.qr-wrapper {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 0.75rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.qr-image {
+  display: block;
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+
+.qr-note {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 1.25rem;
+}
+
+.qr-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
 }
