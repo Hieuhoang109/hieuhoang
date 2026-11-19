@@ -9,7 +9,10 @@
 <body>
   <main class="container">
     <h1 class="title">Hiếu Hoàng</h1>
-    <button id="about-btn" class="btn" type="button">About me</button>
+    <div class="btn-group">
+      <button id="about-btn" class="btn btn-primary" type="button">About me</button>
+      <button id="donate-btn" class="btn btn-donate" type="button">☕ Donate</button>
+    </div>
   </main>
 
   <!-- Modal thông tin About Me -->
@@ -21,6 +24,53 @@
     </div>
   </div>
 
+  <!-- Modal Donate -->
+  <div id="donate-modal" class="modal" aria-hidden="true">
+    <div class="modal-content donate-modal-content">
+      <button id="donate-close-btn" class="close-btn" aria-label="Đóng">&times;</button>
+
+      <!-- Bước 1: Nhập số tiền -->
+      <div id="donate-step-amount" class="donate-step">
+        <h2>Ủng hộ tác giả ☕</h2>
+        <p class="subtitle">Chọn hoặc nhập số tiền bạn muốn donate:</p>
+
+        <div class="quick-amounts">
+          <button type="button" class="quick-btn" data-amount="20000">20.000đ</button>
+          <button type="button" class="quick-btn" data-amount="50000">50.000đ</button>
+          <button type="button" class="quick-btn" data-amount="100000">100.000đ</button>
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="donate-amount-input" placeholder="Ví dụ: 50.000" inputmode="numeric">
+          <span class="currency-label">VNĐ</span>
+        </div>
+        <div class="input-group">
+          <input type="text" id="donate-name-input" placeholder="Tên hoặc biệt danh của bạn (tuỳ chọn)">
+        </div>
+        <div class="input-group">
+          <input type="text" id="donate-message-input" placeholder="Lời nhắn gửi tới Hiếu (tuỳ chọn)">
+        </div>
+        <p id="donate-error" class="error-msg"></p>
+
+        <button id="donate-submit-btn" class="btn btn-donate w-full" type="button">Xác nhận & Xem mã QR</button>
+      </div>
+
+      <!-- Bước 2: Hiển thị mã QR -->
+      <div id="donate-step-qr" class="donate-step" style="display: none;">
+        <h2>Quét mã QR</h2>
+        <p class="donate-amount-display">Số tiền: <strong id="display-amount">0</strong> VNĐ</p>
+        <div class="qr-wrapper">
+          <img src="qr-code.jpg" alt="Mã QR Donate" class="qr-image" />
+        </div>
+        <p class="qr-note">Mở ứng dụng ngân hàng hoặc ví điện tử để quét mã thanh toán</p>
+        <div class="qr-actions">
+          <button id="donate-back-btn" class="btn btn-secondary" type="button">Đổi số tiền</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="firebase.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
